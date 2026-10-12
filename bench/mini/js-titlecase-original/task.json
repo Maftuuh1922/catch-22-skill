@@ -1,0 +1,12 @@
+{
+  "id": "js-titlecase-original",
+  "lang": "js",
+  "problem": "titlecase",
+  "variant": "original",
+  "possible": true,
+  "test_cmd": "npx vitest run",
+  "prompt": "Fix the bug described in ISSUE.md so that the test suite passes. Run the tests with: npx vitest run",
+  "solution": {
+    "src/titlecase.js": "solution/titlecase.js"
+  }
+}

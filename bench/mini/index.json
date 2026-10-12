@@ -1,0 +1,146 @@
+[
+  {
+    "id": "py-slugify-original",
+    "lang": "py",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "py-slugify-oneoff",
+    "lang": "py",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "py-slugify-conflicting",
+    "lang": "py",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "py-median-original",
+    "lang": "py",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "py-median-oneoff",
+    "lang": "py",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "py-median-conflicting",
+    "lang": "py",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "py-duration-original",
+    "lang": "py",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "py-duration-oneoff",
+    "lang": "py",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "py-duration-conflicting",
+    "lang": "py",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "py-clamp-original",
+    "lang": "py",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "py-clamp-oneoff",
+    "lang": "py",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "py-clamp-conflicting",
+    "lang": "py",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "py-roman-original",
+    "lang": "py",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "py-roman-oneoff",
+    "lang": "py",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "py-roman-conflicting",
+    "lang": "py",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "js-titlecase-original",
+    "lang": "js",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "js-titlecase-oneoff",
+    "lang": "js",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "js-titlecase-conflicting",
+    "lang": "js",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "js-sumdigits-original",
+    "lang": "js",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "js-sumdigits-oneoff",
+    "lang": "js",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "js-sumdigits-conflicting",
+    "lang": "js",
+    "variant": "conflicting",
+    "possible": false
+  },
+  {
+    "id": "js-chunk-original",
+    "lang": "js",
+    "variant": "original",
+    "possible": true
+  },
+  {
+    "id": "js-chunk-oneoff",
+    "lang": "js",
+    "variant": "oneoff",
+    "possible": false
+  },
+  {
+    "id": "js-chunk-conflicting",
+    "lang": "js",
+    "variant": "conflicting",
+    "possible": false
+  }
+]

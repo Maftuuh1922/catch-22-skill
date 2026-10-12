@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "catch-22-skill"
+version = "0.1.0"
+description = "Agent skill + stdlib helper: detect impossible tasks (spec vs tests) and test tampering"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = []
+
+[project.scripts]
+c22 = "c22:main"
+
+[tool.setuptools]
+py-modules = ["c22"]
+package-dir = { "" = "scripts" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"

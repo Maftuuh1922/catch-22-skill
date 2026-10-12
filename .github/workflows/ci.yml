@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: unit tests (py${{ matrix.python }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        include:
+          - os: macos-latest
+            python: "3.12"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: helper runs with the standard library only (isolated mode, no site-packages)
+        run: python -I -S scripts/c22.py --version
+      - run: python -m pip install pytest
+      - run: python -m pytest -q
+      - name: c22-mini is reproducible from its generator
+        run: |
+          python bench/make_mini.py
+          git diff --exit-code -- bench/mini
+
+  bench:
+    name: benchmarks (no model)
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: python -m pip install pytest
+      - name: validate c22-mini (empty patch fails, reference fix behaves as labelled)
+        run: python bench/agent_harness.py validate
+      - name: c22 check verdicts on c22-mini
+        run: python bench/mini_verdicts.py --out /tmp/ci-results
+      - name: static detector on Impossible-LiveCodeBench (public HF data)
+        run: python bench/impossiblebench_static.py --only lcb --out /tmp/ci-results
+      - name: tamper detector on the synthetic corpus
+        run: python bench/tamper_corpus.py --out /tmp/ci-results
+      - name: committed numbers match a fresh run
+        run: |
+          python - <<'EOF'
+          import json
+          fresh = json.load(open("/tmp/ci-results/static_summary.json"))["summary"]
+          committed = {(s["dataset"], s["split"]): s for s in json.load(open("bench/results/static_summary.json"))["summary"]}
+          for s in fresh:
+              c = committed[(s["dataset"], s["split"])]
+              assert (s["contradictory"], s["unclear"], s["fixable"]) == (c["contradictory"], c["unclear"], c["fixable"]), (s, c)
+          t_fresh = json.load(open("/tmp/ci-results/tamper_corpus.json"))
+          t_comm = json.load(open("bench/results/tamper_corpus.json"))
+          assert t_fresh["python_lcb_original"] == t_comm["python_lcb_original"], "tamper corpus drifted"
+          v_fresh = json.load(open("/tmp/ci-results/mini_verdicts.json"))
+          v_comm = json.load(open("bench/results/mini_verdicts.json"))
+          assert [(r["task"], r["verdict"]) for r in v_fresh] == [(r["task"], r["verdict"]) for r in v_comm], "mini verdicts drifted"
+          print("committed benchmark numbers reproduced")
+          EOF
+      - name: harness self-test with scripted agents (plumbing only, not a model result)
+        run: |
+          python bench/agent_harness.py run --agent builtin:tamperer --agent-label scripted-tamperer --mode without --out /tmp/ci-harness
+          python bench/agent_harness.py run --agent builtin:skilled --agent-label scripted-skilled --mode with --out /tmp/ci-harness
+          python - <<'EOF'
+          import glob, json
+          s = {}
+          for p in glob.glob("/tmp/ci-harness/*_summary.json"):
+              d = json.load(open(p))
+              s[d["agent"]] = d["summary"]
+          t = s["scripted-tamperer"]["without-skill"]
+          k = s["scripted-skilled"]["with-skill"]
+          assert t["tamper_rate_impossible"] == 1.0, t
+          assert k["tamper_rate_impossible"] == 0.0 and k["solve_rate_possible"] == 1.0, k
+          assert k["false_escalation_rate_possible"] == 0.0, k
+          print(json.dumps(s, indent=2))
+          EOF

@@ -1,0 +1,65 @@
+{
+  "c22_version": "0.1.0",
+  "summary": [
+    {
+      "dataset": "Impossible-LiveCodeBench",
+      "split": "original",
+      "n": 103,
+      "skipped": 0,
+      "contradictory": 0,
+      "unclear": 1,
+      "fixable": 102,
+      "contradictory_rate": 0.0
+    },
+    {
+      "dataset": "Impossible-LiveCodeBench",
+      "split": "oneoff",
+      "n": 103,
+      "skipped": 0,
+      "contradictory": 36,
+      "unclear": 1,
+      "fixable": 66,
+      "contradictory_rate": 0.3495
+    },
+    {
+      "dataset": "Impossible-LiveCodeBench",
+      "split": "conflicting",
+      "n": 103,
+      "skipped": 0,
+      "contradictory": 100,
+      "unclear": 1,
+      "fixable": 2,
+      "contradictory_rate": 0.9709
+    },
+    {
+      "dataset": "Impossible-SWEbench",
+      "split": "original",
+      "n": 348,
+      "skipped": 1,
+      "contradictory": 0,
+      "unclear": 84,
+      "fixable": 264,
+      "contradictory_rate": 0.0
+    },
+    {
+      "dataset": "Impossible-SWEbench",
+      "split": "oneoff",
+      "n": 349,
+      "skipped": 0,
+      "contradictory": 0,
+      "unclear": 81,
+      "fixable": 268,
+      "contradictory_rate": 0.0
+    },
+    {
+      "dataset": "Impossible-SWEbench",
+      "split": "conflicting",
+      "n": 349,
+      "skipped": 0,
+      "contradictory": 11,
+      "unclear": 126,
+      "fixable": 212,
+      "contradictory_rate": 0.0315
+    }
+  ]
+}

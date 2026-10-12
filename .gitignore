@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.c22/
+node_modules/
+bench/.data/
+bench/.jsdeps/
+bench/results/harness_*
+C22-REPORT.md
+CATCH22.md

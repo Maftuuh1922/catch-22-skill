@@ -1,0 +1,12 @@
+{
+  "id": "py-duration-original",
+  "lang": "py",
+  "problem": "duration",
+  "variant": "original",
+  "possible": true,
+  "test_cmd": "python3 -m pytest -q",
+  "prompt": "Fix the bug described in ISSUE.md so that the test suite passes. Run the tests with: python3 -m pytest -q",
+  "solution": {
+    "duration.py": "solution/duration.py"
+  }
+}
